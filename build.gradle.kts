@@ -1,3 +1,5 @@
+import org.gradle.jvm.tasks.Jar
+
 buildscript {
     val kotlinVersion = "1.0.6"
     val springBootVersion = "1.5.1.RELEASE"
@@ -22,7 +24,11 @@ repositories {
     jcenter()
 }
 
-version = "0.1.0-SNAPSHOT"
+val jar: Jar by tasks
+jar.apply {
+    baseName = "sfc-bot"
+    version = "0.1.0-SNAPSHOT"
+}
 
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
