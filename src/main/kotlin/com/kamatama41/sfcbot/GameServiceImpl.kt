@@ -5,6 +5,6 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional
-class SoftwareServiceImpl(
-        private val softwareRepository: SoftwareRepository
-) : SoftwareService, SoftwareRepository by softwareRepository
+class GameServiceImpl(
+        private val gameRepository: GameRepository
+) : GameService, GameRepository by gameRepository

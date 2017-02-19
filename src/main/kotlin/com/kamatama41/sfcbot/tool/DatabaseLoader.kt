@@ -1,7 +1,7 @@
 package com.kamatama41.sfcbot.tool
 
-import com.kamatama41.sfcbot.Software
-import com.kamatama41.sfcbot.SoftwareRepository
+import com.kamatama41.sfcbot.Game
+import com.kamatama41.sfcbot.GameRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 import java.io.BufferedReader
@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 
 @Component
 class DatabaseLoader(
-        private val softwareRepository: SoftwareRepository
+        private val gameRepository: GameRepository
 ) : CommandLineRunner {
     override fun run(vararg args: String) {
         BufferedReader(InputStreamReader(
@@ -23,9 +23,7 @@ class DatabaseLoader(
                 val title = values[1]
                 val publisher = values[2]
                 val price = values[3].toInt()
-                softwareRepository.save(
-                        Software(release = release, title = title, publisher = publisher, price = price)
-                )
+                gameRepository.save(Game(release = release, title = title, publisher = publisher, price = price))
             }
         }
     }

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class SoftwareController(private val softwareService: SoftwareService) {
+class GameController(private val softwareService: GameService) {
     @GetMapping("/")
     @ResponseBody
     @Transactional(readOnly = true)
-    fun index(): Iterable<Software> = softwareService.findAll()
+    fun index(): Iterable<Game> = softwareService.findAll()
 }
