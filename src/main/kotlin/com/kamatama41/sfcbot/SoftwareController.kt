@@ -1,16 +1,14 @@
 package com.kamatama41.sfcbot
 
-import org.springframework.stereotype.Controller
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController
 
-@Controller
-class CityController(private val cityService: CityService) {
+@RestController
+class SoftwareController(private val softwareService: SoftwareService) {
     @GetMapping("/")
     @ResponseBody
     @Transactional(readOnly = true)
-    fun helloWorld(): String {
-        return cityService.getCity("Bath", "UK").name
-    }
+    fun index(): List<Software> = softwareService.findAll()
 }
