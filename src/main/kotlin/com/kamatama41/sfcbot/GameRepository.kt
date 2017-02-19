@@ -18,7 +18,7 @@ interface GameRepository : CrudRepository<Game, Long> {
     override fun delete(entity: Game)
 
     @RestResource(exported = false)
-    override fun <S : Game> save(entity: S): S
+    override fun <S : Game?> save(entity: S): S
 
     @RestResource(exported = false)
     override fun <S : Game?> save(entities: MutableIterable<S>): MutableIterable<S>
