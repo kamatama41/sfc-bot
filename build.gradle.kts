@@ -1,8 +1,10 @@
+import com.moowork.gradle.node.NodeExtension
 import org.gradle.jvm.tasks.Jar
 
 buildscript {
     val kotlinVersion = "1.0.6"
     val springBootVersion = "1.5.1.RELEASE"
+    val nodePluginVersion = "1.1.0"
     extra["kotlinVersion"] = kotlinVersion
     repositories {
         jcenter()
@@ -12,6 +14,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("com.moowork.gradle:gradle-node-plugin:$nodePluginVersion")
     }
 }
 
@@ -22,6 +25,7 @@ apply {
     plugin("kotlin-jpa")
     plugin("org.springframework.boot")
     plugin("application")
+    plugin("com.moowork.node")
 }
 
 repositories {
@@ -50,11 +54,19 @@ dependencies {
     testCompile("junit:junit:4.12")
 }
 
+// Settings for Node.js
+configure<NodeExtension> {
+    version = "6.9.5"
+    npmVersion = "3.10.10"
+    yarnVersion = "0.20.3"
+    download = true
+}
+
 // For Heroku deployment
 task("stage") {
-    dependsOn("build", "clean")
+    dependsOn("build", "clean", "npm_build")
 }
 val build: DefaultTask by tasks
 build.apply {
-    mustRunAfter("clean")
+    mustRunAfter("clean", "npm_build")
 }
