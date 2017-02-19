@@ -1,6 +1,5 @@
 package com.kamatama41.sfcbot
 
-import java.io.Serializable
 import java.net.URLEncoder
 import java.util.Date
 import javax.persistence.Column
@@ -20,7 +19,7 @@ class Game(
         val release: Date,
         @Column(nullable = false)
         val price: Int
-) : Serializable {
+) {
     fun wilipediaUrl(): String = "http://ja.wikipedia.org/wiki/${urlEncode(title)}"
 
     fun googleSearchUrl(): String = "https://www.google.co.jp/search?q=${urlEncode(title)}"
