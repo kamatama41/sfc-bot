@@ -39,7 +39,7 @@ configure<JavaPluginConvention> {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-val kotlinVersion = extra["kotlinVersion"] as String
+val kotlinVersion: String by extra
 dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     compile("org.springframework.boot:spring-boot-starter-web")
