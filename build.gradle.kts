@@ -49,3 +49,12 @@ dependencies {
     runtime("com.h2database:h2:1.4.193")
     testCompile("junit:junit:4.12")
 }
+
+// For Heroku deployment
+task("stage") {
+    dependsOn("build", "clean")
+}
+val build: DefaultTask by tasks
+build.apply {
+    mustRunAfter("clean")
+}
