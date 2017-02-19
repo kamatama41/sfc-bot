@@ -8,9 +8,9 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-class Software(
+class Game(
         @Id @GeneratedValue
-        val id: Long,
+        val id: Long = -1,
         @Column(nullable = false)
         val title: String,
         @Column(nullable = false)
