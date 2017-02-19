@@ -1,7 +1,5 @@
 package com.kamatama41.sfcbot
 
-import org.springframework.data.repository.Repository
+import org.springframework.data.repository.CrudRepository
 
-interface SoftwareRepository : Repository<Software, Long> {
-    fun findAll(): List<Software>
-}
+interface SoftwareRepository : CrudRepository<Software, Long>

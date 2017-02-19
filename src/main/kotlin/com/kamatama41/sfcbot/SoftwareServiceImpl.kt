@@ -7,6 +7,4 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class SoftwareServiceImpl(
         private val softwareRepository: SoftwareRepository
-) : SoftwareService {
-    override fun findAll(): List<Software> = softwareRepository.findAll()
-}
+) : SoftwareService, SoftwareRepository by softwareRepository

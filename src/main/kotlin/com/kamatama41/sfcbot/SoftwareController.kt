@@ -10,5 +10,5 @@ class SoftwareController(private val softwareService: SoftwareService) {
     @GetMapping("/")
     @ResponseBody
     @Transactional(readOnly = true)
-    fun index(): List<Software> = softwareService.findAll()
+    fun index(): Iterable<Software> = softwareService.findAll()
 }
