@@ -24,8 +24,8 @@
     "webpack": "^1.12.2"
   },
   "scripts": {
-    "build": "yarn && webpack --progress --colors",
-    "watch": "yarn && webpack --watch -d"
+    "build": "webpack --progress --colors",
+    "watch": "webpack --watch -d"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",

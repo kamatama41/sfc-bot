@@ -62,11 +62,17 @@ configure<NodeExtension> {
     download = true
 }
 
+val yarn_run_build: Task by tasks
+yarn_run_build.apply {
+    dependsOn("npmSetup")
+}
+
+val build: Task by tasks
+build.apply {
+    mustRunAfter("clean", "yarn_run_build")
+}
+
 // For Heroku deployment
 task("stage") {
-    dependsOn("build", "clean", "npm_build")
-}
-val build: DefaultTask by tasks
-build.apply {
-    mustRunAfter("clean", "npm_build")
+    dependsOn("build", "clean", "yarn_run_build")
 }
