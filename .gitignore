@@ -16,3 +16,4 @@ gradle-app.setting
 .idea
 node_modules
 src/main/resources/static/built
+application-local.properties

@@ -1,5 +1,6 @@
 import com.moowork.gradle.node.NodeExtension
 import org.gradle.jvm.tasks.Jar
+import org.springframework.boot.gradle.run.BootRunTask
 
 buildscript {
     val kotlinVersion = "1.0.6"
@@ -38,6 +39,13 @@ jar.apply {
     version = "0.1.0-SNAPSHOT"
 }
 
+val bootRun: BootRunTask by tasks
+bootRun.apply {
+    // (ex) ./gradlew bootRun -Pprofile=foo
+    val profile = project.findProperty("profile") ?: "local"
+    setJvmArgs(listOf("-Dspring.profiles.active=$profile"))
+}
+
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -45,10 +53,12 @@ configure<JavaPluginConvention> {
 
 val kotlinVersion: String by extra
 dependencies {
+    compile("org.twitter4j:twitter4j-core:4.0.4")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-devtools")
     runtime("com.h2database:h2:1.4.193")
     testCompile("junit:junit:4.12")
