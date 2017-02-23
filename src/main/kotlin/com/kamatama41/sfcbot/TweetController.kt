@@ -9,8 +9,10 @@ import java.net.URL
 import java.text.SimpleDateFormat
 
 @RestController
-class TweetController(private val gameRepository: GameRepository) {
-
+class TweetController(
+        private val gameRepository: GameRepository,
+        private val twitterService: TwitterService
+) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @RequestMapping("/tweet", method = arrayOf(RequestMethod.GET))
@@ -24,7 +26,7 @@ class TweetController(private val gameRepository: GameRepository) {
         var message = "${game.title}(${game.publisher}) 発売日:${dateFormat.format(game.release)} 価格:${game.price}円"
         message += if (isAvailable(game.wikipediaUrl)) " ${game.wikipediaUrl}" else " ${game.googleSearchUrl}"
 
-        logger.info(message)
+        twitterService.tweet(message)
         return "OK"
     }
 
@@ -37,6 +39,6 @@ class TweetController(private val gameRepository: GameRepository) {
         logger.debug("URL: $url, ResponseCode:$responseCode")
 
         // ResponseCode is success or redirect
-        return (responseCode / 100) == 2 || responseCode == 301
+        return responseCode == 200 || responseCode == 301
     }
 }

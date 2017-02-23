@@ -45,6 +45,7 @@ configure<JavaPluginConvention> {
 
 val kotlinVersion: String by extra
 dependencies {
+    compile("org.twitter4j:twitter4j-core:4.0.4")
     compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-data-rest")
