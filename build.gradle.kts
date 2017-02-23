@@ -1,5 +1,6 @@
 import com.moowork.gradle.node.NodeExtension
 import org.gradle.jvm.tasks.Jar
+import org.springframework.boot.gradle.run.BootRunTask
 
 buildscript {
     val kotlinVersion = "1.0.6"
@@ -36,6 +37,13 @@ val jar: Jar by tasks
 jar.apply {
     baseName = "sfc-bot"
     version = "0.1.0-SNAPSHOT"
+}
+
+val bootRun: BootRunTask by tasks
+bootRun.apply {
+    // (ex) ./gradlew bootRun -Pprofile=foo
+    val profile = project.findProperty("profile") ?: "local"
+    setJvmArgs(listOf("-Dspring.profiles.active=$profile"))
 }
 
 configure<JavaPluginConvention> {
