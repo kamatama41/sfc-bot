@@ -12,12 +12,11 @@ import twitter4j.auth.AccessToken
 
 class TwitterServiceImpl(builder: Builder) : TwitterService {
     val logger = LoggerFactory.getLogger(javaClass)!!
-    val twitter: Twitter
-    init {
+    val twitter: Twitter by lazy {
         val singleton = TwitterFactory.getSingleton()
         singleton.setOAuthConsumer(builder.consumerKey, builder.consumerSecret)
         singleton.oAuthAccessToken = AccessToken(builder.token, builder.tokenSecret)
-        twitter = singleton
+        singleton
     }
 
     override fun tweet(message: String) {
