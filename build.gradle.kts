@@ -3,12 +3,13 @@ import org.gradle.jvm.tasks.Jar
 import org.springframework.boot.gradle.run.BootRunTask
 
 buildscript {
-    val kotlinVersion = "1.0.6"
-    val springBootVersion = "1.5.1.RELEASE"
-    val nodePluginVersion = "1.1.0"
+    val kotlinVersion = "1.1.1"
+    val springBootVersion = "1.5.2.RELEASE"
+    val nodePluginVersion = "1.1.1"
     extra["kotlinVersion"] = kotlinVersion
     repositories {
         jcenter()
+        maven { setUrl("https://plugins.gradle.org/m2/") }
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
@@ -60,15 +61,15 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-devtools")
-    runtime("com.h2database:h2:1.4.193")
+    runtime("com.h2database:h2:1.4.194")
     testCompile("junit:junit:4.12")
 }
 
 // Settings for Node.js
 configure<NodeExtension> {
-    version = "6.9.5"
-    npmVersion = "3.10.10"
-    yarnVersion = "0.20.3"
+    version = "6.10.1"
+    npmVersion = "4.4.1"
+    yarnVersion = "0.21.3"
     download = true
 }
 
