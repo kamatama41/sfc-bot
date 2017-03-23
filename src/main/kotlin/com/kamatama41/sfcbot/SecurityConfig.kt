@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 class SecurityConfig(val properties: SecurityProperties) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
+        http.csrf().disable()
         http.authorizeRequests()
                 .antMatchers(
                         "/",

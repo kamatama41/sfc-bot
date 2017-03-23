@@ -42,6 +42,7 @@ jar.apply {
 
 val bootRun: BootRunTask by tasks
 bootRun.apply {
+    main = "com.kamatama41.sfcbot.ApplicationKt"
     // (ex) ./gradlew bootRun -Pprofile=foo
     val profile = project.findProperty("profile") ?: "local"
     setJvmArgs(listOf("-Dspring.profiles.active=$profile"))
