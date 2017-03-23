@@ -15,8 +15,7 @@ class TweetController(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    @RequestMapping("/tweet", method = arrayOf(RequestMethod.GET))
-//    @RequestMapping("/tweet", method = arrayOf(RequestMethod.POST))
+    @RequestMapping("/tweet", method = arrayOf(RequestMethod.POST))
     fun tweet(): String {
         val count = gameRepository.count()
         if (count == 0L) throw IllegalStateException("Game Repository is empty.")
