@@ -48,7 +48,7 @@ class Game extends React.Component {
   render() {
     return (
       <tr>
-        <td>{this.props.game.title}</td>
+        <td><a href={this.props.game.wikipediaUrl} target="_blank">{this.props.game.title}</a></td>
         <td>{this.props.game.publisher}</td>
         <td>{this.props.game.release}</td>
         <td>{this.props.game.price}</td>

@@ -20,7 +20,7 @@ class Game(
         @Column(nullable = false)
         val price: Int
 ) {
-    val wikipediaUrl: String get() = "https://ja.wikipedia.org/wiki/${urlEncode(title)}"
+    val wikipediaUrl: String get() = "https://ja.wikipedia.org/wiki/${urlEncode(title.replace(" ", "_"))}"
     val googleSearchUrl: String get() = "https://www.google.co.jp/search?q=${urlEncode(title)}"
 
     private fun urlEncode(path: String): String = URLEncoder.encode(path, "UTF-8")
