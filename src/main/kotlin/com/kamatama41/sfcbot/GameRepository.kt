@@ -1,9 +1,14 @@
 package com.kamatama41.sfcbot
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.rest.core.annotation.RestResource
 
 interface GameRepository : CrudRepository<Game, Long> {
+
+    fun findAll(pageable: Pageable): Page<Game>
+
     // Hide POST PUT DELETE for this resource
     @RestResource(exported = false)
     override fun deleteAll()
