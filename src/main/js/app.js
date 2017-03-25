@@ -2,24 +2,37 @@
 
 const React = require('react')
 const ReactDOM = require('react-dom')
+const ReactPaginate = require('react-paginate')
 const client = require('./client')
 
 class App extends React.Component {
 
   constructor(props) {
-    super(props);
-    this.state = {games: []}
+    super(props)
+    this.state = {games: [], page: {}}
+  }
+
+  loadGames(pageNumber = 0) {
+    client({method: 'GET', path: '/api/games', params: {page: pageNumber, size: 15}}).done(response => {
+      this.setState({games: response.entity._embedded.games, page:response.entity.page})
+    })
   }
 
   componentDidMount() {
-    client({method: 'GET', path: '/api/games'}).done(response => {
-      this.setState({games: response.entity._embedded.games})
-    })
+    this.loadGames()
   }
 
   render() {
     return (
-      <GameList games={this.state.games}/>
+      <div>
+        <GameList games={this.state.games}/>
+        <ReactPaginate
+          pageCount={this.state.page.totalPages}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={2}
+          onPageChange={(data) => { this.loadGames(data.selected) }}
+        />
+      </div>
     )
   }
 }
