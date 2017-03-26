@@ -11,8 +11,8 @@ import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
 
 class TwitterServiceImpl(builder: Builder) : TwitterService {
-    val logger = LoggerFactory.getLogger(javaClass)!!
-    val twitter: Twitter by lazy {
+    private val logger = LoggerFactory.getLogger(javaClass)!!
+    private val twitter: Twitter by lazy {
         val singleton = TwitterFactory.getSingleton()
         singleton.setOAuthConsumer(builder.consumerKey, builder.consumerSecret)
         singleton.oAuthAccessToken = AccessToken(builder.token, builder.tokenSecret)
