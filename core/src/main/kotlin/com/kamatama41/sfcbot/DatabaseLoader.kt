@@ -1,7 +1,5 @@
-package com.kamatama41.sfcbot.tool
+package com.kamatama41.sfcbot
 
-import com.kamatama41.sfcbot.Game
-import com.kamatama41.sfcbot.GameRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 import java.io.BufferedReader

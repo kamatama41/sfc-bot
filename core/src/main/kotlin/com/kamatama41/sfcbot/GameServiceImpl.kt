@@ -1,22 +1,20 @@
 package com.kamatama41.sfcbot
 
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.stereotype.Component
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
 
-@RestController
-class TweetController(
+@Component
+class GameServiceImpl(
         private val gameRepository: GameRepository,
         private val twitterService: TwitterService
-) {
-    private val logger = LoggerFactory.getLogger(javaClass)
+): GameService {
 
-    @RequestMapping("/tweet", method = arrayOf(RequestMethod.POST))
-    fun tweet(): String {
+    private val logger = LoggerFactory.getLogger(this.javaClass)
+
+    override fun tweetRandomly() {
         val count = gameRepository.count()
         if (count == 0L) throw IllegalStateException("Game Repository is empty.")
 
@@ -26,7 +24,6 @@ class TweetController(
         message += if (isAvailable(game.wikipediaUrl)) " ${game.wikipediaUrl}" else " ${game.googleSearchUrl}"
 
         twitterService.tweet(message)
-        return "OK"
     }
 
     private fun isAvailable(url: String): Boolean {
