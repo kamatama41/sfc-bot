@@ -1,9 +1,12 @@
-'use strict'
+import 'bootstrap/dist/css/bootstrap.css'
 
-const React = require('react')
-const ReactDOM = require('react-dom')
-const ReactPaginate = require('react-paginate')
-const client = require('./client')
+import client from './client'
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Table } from 'reactstrap'
+import ReactPaginate from 'react-paginate'
+
 
 class App extends React.Component {
 
@@ -13,7 +16,7 @@ class App extends React.Component {
   }
 
   loadGames(pageNumber = 0) {
-    client({method: 'GET', path: '/api/games', params: {page: pageNumber, size: 15}}).done(response => {
+    client({method: 'GET', path: '/api/games', params: {page: pageNumber, size: 20}}).done(response => {
       this.setState({games: response.entity._embedded.games, page:response.entity.page})
     })
   }
@@ -25,13 +28,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <GameList games={this.state.games}/>
         <ReactPaginate
           pageCount={this.state.page.totalPages}
           pageRangeDisplayed={5}
-          marginPagesDisplayed={2}
+          marginPagesDisplayed={1}
           onPageChange={(data) => { this.loadGames(data.selected) }}
+          containerClassName="pagination"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLabel={<div className="page-link">...</div>}
+          activeClassName="active"
         />
+        <GameList games={this.state.games}/>
       </div>
     )
   }
@@ -40,19 +53,21 @@ class App extends React.Component {
 class GameList extends React.Component {
   render() {
     return (
-      <table>
+      <Table size="sm">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Publisher</th>
+            <th>Release</th>
+            <th>Price</th>
+          </tr>
+        </thead>
         <tbody>
-        <tr>
-          <th>Title</th>
-          <th>Publisher</th>
-          <th>Release</th>
-          <th>Price</th>
-        </tr>
-        {this.props.games.map(game =>
-          <Game key={game._links.self.href} game={game}/>
-        )}
+          {this.props.games.map(game =>
+            <Game key={game._links.self.href} game={game}/>
+          )}
         </tbody>
-      </table>
+      </Table>
     )
   }
 }
