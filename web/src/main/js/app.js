@@ -8,6 +8,9 @@ import {
   Table,
   Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink
 } from 'reactstrap'
+import {
+  IntlProvider, FormattedDate, FormattedNumber
+} from 'react-intl'
 import ReactPaginate from 'react-paginate'
 
 
@@ -102,14 +105,20 @@ class Game extends React.Component {
       <tr>
         <td><a href={this.props.game.wikipediaUrl} target="_blank">{this.props.game.title}</a></td>
         <td>{this.props.game.publisher}</td>
-        <td>{this.props.game.release}</td>
-        <td>{this.props.game.price}</td>
+        <td>
+          <FormattedDate value={new Date(this.props.game.release)} year='numeric' month='long' day='numeric' />
+        </td>
+        <td>
+          ¥<FormattedNumber value={this.props.game.price} />
+        </td>
       </tr>
     )
   }
 }
 
 ReactDOM.render(
-  <App />,
+  <IntlProvider locale="ja">
+    <App />
+  </IntlProvider>,
   document.getElementById('react')
 )
