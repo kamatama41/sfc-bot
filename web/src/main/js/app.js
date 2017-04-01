@@ -4,7 +4,10 @@ import client from './client'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Table } from 'reactstrap'
+import {
+  Table,
+  Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink
+} from 'reactstrap'
 import ReactPaginate from 'react-paginate'
 
 
@@ -28,6 +31,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         <ReactPaginate
           pageCount={this.state.page.totalPages}
           pageRangeDisplayed={5}
@@ -45,6 +49,26 @@ class App extends React.Component {
           activeClassName="active"
         />
         <GameList games={this.state.games}/>
+      </div>
+    )
+  }
+}
+
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light toggleable>
+          <NavbarBrand href="/">SFC Bot</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="https://twitter.com/SuperFamicomBot" target="_blank">Twitter</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="https://github.com/kamatama41/sfc-bot" target="_blank">GitHub</NavLink>
+            </NavItem>
+          </Nav>
+        </Navbar>
       </div>
     )
   }
