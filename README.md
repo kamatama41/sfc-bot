@@ -4,10 +4,12 @@
 
 Start backend server
 ```
-$ ./gradlew bootRun
+$ cd web
+$ ../gradlew bootRun
 ```
 
 Build and watch JavaScript
 ```
-$ ./gradlew yarn_run_watch
+$ cd web
+$ ../gradlew yarn_run_watch
 ```
